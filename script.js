@@ -85,3 +85,5 @@ function showDataError(error) {
     "friends.json loaded, but its data could not be used. Check quotes, commas, brackets, and key names.";
   console.error("Data problem:", error.message);
 }
+
+
