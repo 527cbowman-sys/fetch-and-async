@@ -42,17 +42,19 @@ function loadFriends() {
 
 
 
-
-  //     try {
-  //       const friends = JSON.parse(xhr.responseText);
-  //       renderFriends(friends);
-  //     } catch (error) {
-  //       showDataError(error);
-  //     }
-  //   } else {
-  //     showLoadError();
-  //   }
-//   };
+async function loadFriends() {
+      try {
+        const response = await fetch("friends.json");
+        if (!response.ok) {
+          throw new Error("response not OK");
+        }
+        const friends = await response.json();
+        renderFriends(friends);
+      } catch (error) {
+        showLoadError();
+      }
+    }
+    
 
 //   xhr.onerror = showLoadError; //onerror
 //   xhr.send(); //send
