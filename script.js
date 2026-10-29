@@ -20,25 +20,43 @@ function loadFriends() {
   statusMessage.classList.remove("error");
   statusMessage.textContent = "Loading friends...";
 
-  const xhr = new XMLHttpRequest(); //create
-  xhr.open("GET", "friends.json"); //open
 
-  xhr.onload = function () { //onload
-    if (xhr.status === 200) {
-      try {
-        const friends = JSON.parse(xhr.responseText);
-        renderFriends(friends);
-      } catch (error) {
-        showDataError(error);
+  fetch("friends.json")
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("response not OK");
       }
-    } else {
-      showLoadError();
-    }
-  };
-
-  xhr.onerror = showLoadError; //onerror
-  xhr.send(); //send
+      return response.json();
+    })
+    .then(friends => {
+      renderFriends(friends);
+    })
+    .catch(error => {
+      if (error instanceof SyntaxError) {
+        showDataError(error);
+      } else {
+        showLoadError();
+      }
+    });
 }
+
+
+
+
+  //     try {
+  //       const friends = JSON.parse(xhr.responseText);
+  //       renderFriends(friends);
+  //     } catch (error) {
+  //       showDataError(error);
+  //     }
+  //   } else {
+  //     showLoadError();
+  //   }
+//   };
+
+//   xhr.onerror = showLoadError; //onerror
+//   xhr.send(); //send
+// }
 
 // -------------------------------------------------------------
 // renderFriends: turns the array into cards. Do not change it for this lesson.
