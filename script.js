@@ -54,6 +54,8 @@ async function loadFriends() {
         showLoadError();
       }
     }
+
+    // A 404 error requires a response.ok check because the fetch() API does not reject its promise on HTTP error status codes
     
 
 //   xhr.onerror = showLoadError; //onerror
